@@ -4,13 +4,15 @@ on:
   issues:
     types: [opened]
   workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
 
 permissions:
   contents: write
 
 jobs:
   import-source:
-    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.issue.title, 'IMPORT ARMAN SOURCE')
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || startsWith(github.event.issue.title, 'IMPORT ARMAN SOURCE')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout target repository
