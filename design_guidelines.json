@@ -1,0 +1,119 @@
+{
+  "theme": "dark",
+  "typography": {
+    "headings": {
+      "fontFamily": "'Playfair Display', serif",
+      "weights": ["400", "500", "600", "700"],
+      "usage": "Primary headings (H1, H2, H3). Use tracking-tight for larger sizes. Add italic variations for specific accent words (e.g., 'The Art of *Hair*').",
+      "css_import": "@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&display=swap');"
+    },
+    "body": {
+      "fontFamily": "'Manrope', sans-serif",
+      "weights": ["300", "400", "500", "600"],
+      "usage": "Body copy, button text, form inputs, small labels.",
+      "css_import": "@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap');"
+    },
+    "accent": {
+      "fontFamily": "'Great Vibes', cursive",
+      "usage": "Used purely for the founder's signature on the About page.",
+      "css_import": "@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');"
+    }
+  },
+  "colors": {
+    "background": {
+      "default": "#050505",
+      "surface": "#111111",
+      "surface_elevated": "#1A1A1A"
+    },
+    "brand": {
+      "gold": "#C9A961",
+      "gold_hover": "#DCC287",
+      "gold_muted": "rgba(201, 169, 97, 0.15)"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A3A3A3",
+      "muted": "#737373",
+      "gold": "#C9A961"
+    },
+    "border": {
+      "subtle": "rgba(255, 255, 255, 0.08)",
+      "gold_subtle": "rgba(201, 169, 97, 0.3)",
+      "gold": "#C9A961"
+    }
+  },
+  "visual_enhancers": {
+    "gradients": {
+      "hero_overlay": "bg-gradient-to-r from-[#050505] via-[#050505]/80 to-transparent",
+      "image_fade": "bg-gradient-to-t from-[#111111] to-transparent"
+    },
+    "shadows": {
+      "gold_glow": "0 4px 30px rgba(201, 169, 97, 0.15)",
+      "card_lift": "0 10px 40px rgba(0, 0, 0, 0.5)"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary_filled": "bg-[#C9A961] text-[#050505] font-manrope font-semibold tracking-wider text-sm uppercase px-8 py-4 rounded-none hover:bg-[#DCC287] transition-colors",
+      "secondary_outlined": "border border-[#C9A961] text-[#C9A961] font-manrope font-semibold tracking-wider text-sm uppercase px-8 py-4 rounded-none hover:bg-[#C9A961] hover:text-[#050505] transition-all",
+      "whatsapp_button": "Uses the secondary_outlined style but includes a WhatsApp icon. Text: 'BOOK ON WHATSAPP'"
+    },
+    "section_headers": {
+      "label": "text-[#C9A961] font-manrope text-xs sm:text-sm uppercase tracking-[0.2em] mb-4 block",
+      "title": "text-4xl sm:text-5xl lg:text-6xl text-white font-playfair mb-6",
+      "divider": "flex items-center gap-4 my-8",
+      "divider_implementation": "<div className=\"flex items-center gap-4\"><div className=\"h-[1px] w-12 bg-[#C9A961]/50\"></div><Scissors className=\"w-5 h-5 text-[#C9A961]\" /><div className=\"h-[1px] w-12 bg-[#C9A961]/50\"></div></div>"
+    },
+    "cards": {
+      "feature_card": "bg-[#111111] border border-white/5 p-8 rounded-none transition-all duration-300 hover:-translate-y-2 hover:border-[#C9A961]/50 hover:shadow-[0_4px_30px_rgba(201,169,97,0.1)] group",
+      "service_card": "bg-[#111111] border border-white/5 rounded-none overflow-hidden group hover:border-[#C9A961]/50 transition-all duration-300",
+      "service_card_image_wrapper": "relative h-64 overflow-hidden",
+      "service_card_content": "p-6 relative",
+      "service_card_label": "text-[#C9A961] font-manrope text-xs uppercase tracking-wider mb-2",
+      "service_card_title": "text-2xl text-white font-playfair"
+    },
+    "forms": {
+      "input": "bg-transparent border border-white/10 text-white rounded-none p-4 w-full focus:outline-none focus:border-[#C9A961] focus:ring-1 focus:ring-[#C9A961] transition-all placeholder:text-white/30 font-manrope"
+    }
+  },
+  "layout": {
+    "hero": "min-h-screen relative flex items-center pt-20. The layout MUST be split: left side contains text (50% width), right side contains the male model image filling the right half (absolute inset-y-0 right-0 w-1/2 object-cover object-center). Use a gradient overlay (from black to transparent) to blend the image into the background.",
+    "spacing": "Use generous vertical spacing between sections (py-24 or py-32).",
+    "contact_section": "Two-column bento style grid (md:grid-cols-2 gap-12). Left: 'Get In Touch' info with gold icons. Right: Booking form."
+  },
+  "motion": {
+    "hover": "All interactive elements must transition smoothly (duration-300 ease-out).",
+    "entrance": "Staggered fade-up for service cards and feature grids using framer-motion.",
+    "parallax": "Subtle parallax on the hero image and about page founder portrait."
+  },
+  "icons": {
+    "library": "lucide-react",
+    "logo": "Crossed scissors icon (Scissors from lucide-react) scaled up and styled with gold.",
+    "specific_usage": "Always use a thin stroke-width (1.5 or 1) for a premium, delicate look."
+  },
+  "image_urls": {
+    "hero_main": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHwyfHxwcmVtaXVtJTIwbWVucyUyMGhhaXJjdXQlMjBiYXJiZXJ8ZW58MHx8fHwxNzg2NzYwODQ2fDA&ixlib=rb-4.1.0&q=85",
+    "service_haircut": "https://images.unsplash.com/photo-1647140655214-e4a2d914971f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHwzfHxwcmVtaXVtJTIwbWVucyUyMGhhaXJjdXQlMjBiYXJiZXJ8ZW58MHx8fHwxNzg2NzYwODQ2fDA&ixlib=rb-4.1.0&q=85",
+    "service_ladies_styling": "https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHw0fHxlbGVnYW50JTIwd29tZW5zJTIwaGFpciUyMHN0eWxpbmd8ZW58MHx8fHwxNzg2NzYwODQ2fDA&ixlib=rb-4.1.0&q=85",
+    "service_bridal": "https://images.unsplash.com/photo-1672788694268-ecc234591d31?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwyfHxlbGVnYW50JTIwd29tZW5zJTIwaGFpciUyMHN0eWxpbmd8ZW58MHx8fHwxNzg2NzYwODQ2fDA&ixlib=rb-4.1.0&q=85",
+    "founder_portrait": "https://images.unsplash.com/photo-1605497788044-5a32c7078486?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHwxfHxwcmVtaXVtJTIwbWVucyUyMGhhaXJjdXQlMjBiYXJiZXJ8ZW58MHx8fHwxNzg2NzYwODQ2fDA&ixlib=rb-4.1.0&q=85",
+    "background_texture": "https://images.unsplash.com/photo-1617351165725-ec1c8ca2bf67?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwzfHxsdXh1cnklMjBzYWxvbiUyMGludGVyaW9yJTIwZGFya3xlbnwwfHx8fDE3ODY3NjA4NDZ8MA&ixlib=rb-4.1.0&q=85"
+  },
+  "general_ui_ux_guidelines": {
+    "testing": "All interactive and key informational elements MUST include a 'data-testid' attribute.",
+    "anti_ai_slop": "DO NOT use generic centralized layouts. Avoid default Shadcn radius. Force sharp edges (rounded-none) for a high-end editorial feel. Never use simple gray borders; use white with 5% opacity.",
+    "transparency": "DO NOT use completely transparent backgrounds for overlapping elements like headers or dropdowns. Always use bg-[#050505]/90 with backdrop-blur-md.",
+    "hover_states": "Hover states must elevate elements (Y-axis translation) and introduce the brand gold (#C9A961) subtly.",
+    "price_hiding": "CRITICAL: Do not render any prices in the UI as per the owner's request."
+  },
+  "instructions_to_main_agent": {
+    "1": "Inject Playfair Display and Manrope via Google Fonts into the index.css.",
+    "2": "Setup Tailwind config to map 'font-playfair' and 'font-manrope' and the specific gold hex '#C9A961' as 'brand-gold'.",
+    "3": "Build the custom Scissor Divider component first, as it is heavily reused.",
+    "4": "The Hero section must exactly match the description: Text on left, massive image on right fading into the black background. Buttons must be two-tone (Solid Gold and Outlined Gold).",
+    "5": "No rounded corners anywhere (unless explicitly needed for an avatar). Luxury implies sharp, precise edges (rounded-none).",
+    "6": "In the Services Section, separate into 'Gents' and 'Ladies' tabs/grids. DO NOT show prices.",
+    "7": "Admin Panel must have a dark mode theme matching the website but optimized for data density. Use standard Shadcn with dark/gold tweaks.",
+    "8": "Contact Form MUST have gold focus rings: `focus:ring-[#C9A961] focus:border-[#C9A961]`."
+  }
+}

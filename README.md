@@ -1,3 +1,1 @@
-# Arman Khan Website
-
-Initial repository setup for deployment.
+# Here are your Instructions
