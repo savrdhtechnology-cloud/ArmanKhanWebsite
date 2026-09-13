@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#050505" />
+  <title>Arman Hair Studio | Premium Hair & Grooming</title>
+  <meta name="description" content="Arman Hair Studio, Bhopal — premium ladies & gents hair styling, grooming, colour, spa and bridal services." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#050505;--card:#0d0d0d;--gold:#c9a961;--gold2:#ead38f;--muted:#a0a0a0;--line:rgba(201,169,97,.24)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:#fff;font-family:Manrope,system-ui,sans-serif;overflow-x:hidden}a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
+    .serif{font-family:"Playfair Display",serif}.gold{color:var(--gold)}.wrap{width:min(1180px,calc(100% - 40px));margin:auto}.eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:700}.section{padding:96px 0}.title{font:500 clamp(38px,6vw,66px)/1 "Playfair Display",serif;margin:12px 0 18px}.sub{color:#aaa;line-height:1.8;max-width:700px}.line{height:1px;background:linear-gradient(90deg,var(--gold),transparent);width:90px;margin:24px 0}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 22px;border:1px solid var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:.14em;font-weight:700;transition:.25s;cursor:pointer}.btn.primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#090909}.btn.primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,169,97,.18)}.btn.ghost:hover{background:var(--gold);color:#090909}.reveal{opacity:0;transform:translateY(24px);transition:.7s}.reveal.on{opacity:1;transform:none}
+    header{position:fixed;z-index:50;top:0;left:0;right:0;background:rgba(5,5,5,.86);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}.nav{height:78px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:12px}.brand img{height:48px;width:auto}.brand-text{font:600 18px/1.1 "Playfair Display",serif;letter-spacing:.04em}.brand-text small{display:block;font:600 8px/1.4 Manrope,sans-serif;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;margin-top:4px}.links{display:flex;align-items:center;gap:26px;font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:#ccc}.links a:hover{color:var(--gold)}.menu{display:none;border:1px solid var(--line);background:transparent;color:#fff;padding:9px 11px;font-size:20px}
+    .hero{min-height:100vh;padding-top:78px;display:grid;align-items:center;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;width:620px;height:620px;border-radius:50%;background:rgba(201,169,97,.07);filter:blur(80px);right:4%;top:14%}.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;min-height:calc(100vh - 78px);gap:30px}.hero h1{font:500 clamp(58px,8vw,105px)/.88 "Playfair Display",serif;margin:16px 0 22px;letter-spacing:-.035em}.hero h1 em{color:var(--gold);font-weight:500}.hero p{font-size:16px;color:#aaa;line-height:1.8;max-width:560px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}.portrait{align-self:stretch;position:relative;min-height:650px}.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:40% 15%;filter:saturate(.82) contrast(1.04)}.portrait:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.15) 32%,transparent 56%),linear-gradient(0deg,#050505 0%,transparent 28%)}.founder{position:absolute;z-index:2;bottom:9%;right:0;background:rgba(5,5,5,.82);backdrop-filter:blur(12px);border-left:2px solid var(--gold);padding:18px 22px}.founder b{font:500 26px "Playfair Display",serif}.founder span{display:block;color:#aaa;font-size:11px;margin-top:5px;letter-spacing:.08em}.ticker{border-block:1px solid var(--line);padding:18px 0;white-space:nowrap;overflow:hidden;color:var(--gold);font-size:11px;letter-spacing:.28em;text-transform:uppercase}.ticker div{display:inline-block;animation:tick 24s linear infinite}.ticker span{margin:0 30px}@keyframes tick{to{transform:translateX(-50%)}}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:48px 0}.stat{border-left:2px solid var(--gold);padding-left:18px}.stat strong{font:500 44px "Playfair Display",serif}.stat small{display:block;color:#888;text-transform:uppercase;letter-spacing:.2em;margin-top:7px;font-size:9px}
+    .services{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:42px}.service{position:relative;min-height:360px;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,.06)}.service img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;filter:grayscale(.15);transition:.5s}.service:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.95),rgba(0,0,0,.08) 70%)}.service:hover img{transform:scale(1.05)}.service-content{position:absolute;z-index:2;bottom:0;padding:24px}.service h3{font:500 24px "Playfair Display",serif;margin:0 0 7px}.service p{color:#bbb;font-size:12px;line-height:1.6;margin:0}.pill{display:inline-block;border:1px solid var(--line);color:var(--gold);font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:6px 8px;margin-bottom:12px}
+    .about{display:grid;grid-template-columns:.92fr 1.08fr;gap:56px;align-items:center}.about-media{position:relative}.about-media img{width:100%;aspect-ratio:4/5;object-fit:cover}.about-media:before,.about-media:after{content:"";position:absolute;width:70px;height:70px;border-color:var(--gold)}.about-media:before{top:-12px;left:-12px;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}.about-media:after{bottom:-12px;right:-12px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold)}.features{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}.feature{border:1px solid rgba(255,255,255,.07);padding:18px;background:#0a0a0a}.feature b{display:block;font:500 17px "Playfair Display",serif}.feature span{font-size:11px;color:#888;line-height:1.6}
+    .gallery{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:180px;gap:10px;margin-top:40px}.gallery figure{margin:0;overflow:hidden;position:relative}.gallery img{width:100%;height:100%;object-fit:cover;transition:.45s}.gallery figure:hover img{transform:scale(1.05)}.gallery figure:nth-child(1){grid-column:span 5;grid-row:span 2}.gallery figure:nth-child(2){grid-column:span 3}.gallery figure:nth-child(3){grid-column:span 4}.gallery figure:nth-child(4){grid-column:span 4}.gallery figure:nth-child(5){grid-column:span 3}.gallery figure:nth-child(6){grid-column:span 5}
+    .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:38px;margin-top:40px}.contact-card{display:flex;gap:14px;padding:18px;border:1px solid rgba(255,255,255,.06);background:#0b0b0b;margin-bottom:12px}.icon{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);color:var(--gold);flex:0 0 42px}.contact-card small{color:var(--gold);text-transform:uppercase;letter-spacing:.22em;font-size:9px}.contact-card b{display:block;margin-top:4px;font-size:14px}.form{border:1px solid var(--line);padding:28px;background:#0b0b0b}.form h3{font:500 26px "Playfair Display",serif;margin:0 0 22px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{width:100%;background:#080808;border:1px solid rgba(255,255,255,.1);color:#fff;padding:14px 13px;outline:none;font:12px Manrope,sans-serif}.field:focus{border-color:var(--gold)}select.field{appearance:none}.form .btn{width:100%;margin-top:14px}.note{color:#777;font-size:10px;line-height:1.6;margin-top:12px}
+    footer{border-top:1px solid var(--line);padding:34px 0;color:#777;font-size:11px}.foot{display:flex;justify-content:space-between;gap:20px;align-items:center}.foot a{color:var(--gold)}
+    .wa{position:fixed;right:20px;bottom:20px;z-index:45;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:#1fbf63;color:#fff;font-weight:800;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+    @media(max-width:900px){.links{display:none;position:absolute;top:78px;left:0;right:0;background:#070707;border-bottom:1px solid var(--line);padding:22px 24px;flex-direction:column;align-items:flex-start}.links.open{display:flex}.menu{display:block}.hero-grid{grid-template-columns:1fr}.hero-copy{padding:80px 0 20px;position:relative;z-index:3}.portrait{min-height:500px}.portrait:after{background:linear-gradient(0deg,#050505 0%,transparent 42%)}.stats{grid-template-columns:1fr 1fr}.services{grid-template-columns:1fr 1fr}.about{grid-template-columns:1fr}.about-media{max-width:560px}.contact-grid{grid-template-columns:1fr}.gallery{grid-template-columns:1fr 1fr;grid-auto-rows:220px}.gallery figure{grid-column:auto!important;grid-row:auto!important}}
+    @media(max-width:560px){.wrap{width:min(100% - 28px,1180px)}.section{padding:72px 0}.hero h1{font-size:58px}.portrait{min-height:420px}.services{grid-template-columns:1fr}.service{min-height:390px}.stats{gap:14px}.stat strong{font-size:34px}.features{grid-template-columns:1fr}.gallery{grid-template-columns:1fr;grid-auto-rows:280px}.form-grid{grid-template-columns:1fr}.foot{align-items:flex-start;flex-direction:column}.brand img{height:42px}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav wrap">
+    <a class="brand" href="#home">
+      <img src="https://raw.githubusercontent.com/savrdhtechnology-cloud/ArmanKhanWebsite/main/frontend/public/assets/arman-logo.png" alt="Arman Hair Studio logo" />
+      <div class="brand-text">ARMAN <span class="gold">Hair Studio</span><small>The Art of Hair</small></div>
+    </a>
+    <button class="menu" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')">☰</button>
+    <nav class="links">
+      <a href="#home">Home</a><a href="#services">Services</a><a href="#about">About</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a>
+      <a class="btn primary" href="https://wa.me/918878356060?text=Hi%20Arman%20Hair%20Studio%2C%20I%20want%20to%20book%20an%20appointment." target="_blank" rel="noreferrer">Book Now</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="home" class="hero">
+  <div class="hero-grid wrap">
+    <div class="hero-copy reveal">
+      <div class="eyebrow">Premium Hair Experience · Bhopal</div>
+      <h1>ARMAN<br><em>Hair Studio</em></h1>
+      <div class="line"></div>
+      <p class="serif" style="font-size:25px;color:#ddd;font-style:italic;margin:0 0 8px">The Art of Hair</p>
+      <p>Ladies &amp; Gents hair specialist delivering signature cuts, premium styling, colour and grooming in a modern luxury studio.</p>
+      <div class="actions">
+        <a class="btn primary" href="#contact">Book Your Chair</a>
+        <a class="btn ghost" href="https://wa.me/918878356060?text=Hi%20Arman%20Hair%20Studio%2C%20I%20want%20to%20book%20an%20appointment." target="_blank" rel="noreferrer">WhatsApp Booking</a>
+      </div>
+    </div>
+    <div class="portrait reveal">
+      <img src="https://raw.githubusercontent.com/savrdhtechnology-cloud/ArmanKhanWebsite/main/frontend/public/assets/arman-portrait.jpg" alt="Arman Khan" />
+      <div class="founder"><span class="gold" style="text-transform:uppercase;letter-spacing:.2em">Founder</span><b>Arman Khan</b><span>Master Hair Stylist</span></div>
+    </div>
+  </div>
+</section>
+<div class="ticker"><div><span>The Art of Hair</span>◆<span>Premium Styling</span>◆<span>Luxury Grooming</span>◆<span>Signature Cuts</span>◆<span>Bhopal</span>◆<span>The Art of Hair</span>◆<span>Premium Styling</span>◆<span>Luxury Grooming</span>◆<span>Signature Cuts</span>◆<span>Bhopal</span></div></div>
+<section class="wrap"><div class="stats reveal"><div class="stat"><strong>10<span class="gold">+</span></strong><small>Years Experience</small></div><div class="stat"><strong>5000<span class="gold">+</span></strong><small>Happy Clients</small></div><div class="stat"><strong>16<span class="gold">+</span></strong><small>Signature Services</small></div><div class="stat"><strong>5<span class="gold">★</span></strong><small>Google Rated</small></div></div></section>
+
+<section id="services" class="section">
+  <div class="wrap">
+    <div class="reveal"><div class="eyebrow">Our Services</div><h2 class="title">Services We <span class="gold"><em>Offer</em></span></h2><div class="line"></div><p class="sub">Precision grooming and premium hair care for every look — from everyday refinement to statement styling.</p></div>
+    <div class="services">
+      <article class="service reveal"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Signature haircut"><div class="service-content"><span class="pill">Gents</span><h3>Signature Haircut</h3><p>Precision cut &amp; styling tailored to your look.</p></div></article>
+      <article class="service reveal"><img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Haircut and beard styling"><div class="service-content"><span class="pill">Gents</span><h3>Haircut &amp; Beard</h3><p>Complete grooming with haircut and beard shape.</p></div></article>
+      <article class="service reveal"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Ladies haircut"><div class="service-content"><span class="pill">Ladies</span><h3>Hair Cut</h3><p>Modern, flattering cuts for every hair length.</p></div></article>
+      <article class="service reveal"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Hair styling"><div class="service-content"><span class="pill">Ladies</span><h3>Hair Styling</h3><p>Blowdry, curls, waves &amp; advanced styling.</p></div></article>
+      <article class="service reveal"><img src="https://images.unsplash.com/photo-1595475884562-073c30d45670?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Hair colour"><div class="service-content"><span class="pill">Premium</span><h3>Hair Colour</h3><p>Global colour shades for a striking, polished look.</p></div></article>
+      <article class="service reveal"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Keratin treatment"><div class="service-content"><span class="pill">Treatment</span><h3>Keratin Treatment</h3><p>Smooth, shiny &amp; frizz-free hair.</p></div></article>
+      <article class="service reveal"><img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Hair spa"><div class="service-content"><span class="pill">Care</span><h3>Hair Spa</h3><p>Nourishing spa for healthy scalp and hair.</p></div></article>
+      <article class="service reveal"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Bridal styling"><div class="service-content"><span class="pill">Bridal</span><h3>Bridal Hair Styling</h3><p>Complete premium hair styling for your big day.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="section" style="background:#090909">
+  <div class="wrap about">
+    <div class="about-media reveal"><img src="https://raw.githubusercontent.com/savrdhtechnology-cloud/ArmanKhanWebsite/main/frontend/public/assets/arman-portrait.jpg" alt="Arman Khan, master stylist"></div>
+    <div class="reveal"><div class="eyebrow">Meet the Founder</div><h2 class="title">Crafted by <span class="gold"><em>Arman Khan</em></span></h2><div class="line"></div><p class="sub">A premium studio built around detail, confidence and the belief that great hair is personal. Every service is designed to balance technique, style and a comfortable luxury experience.</p><div class="features"><div class="feature"><b>Expert Stylists</b><span>Trained professionals with modern techniques.</span></div><div class="feature"><b>Premium Products</b><span>Quality products selected for professional results.</span></div><div class="feature"><b>Hygienic Studio</b><span>Clean, modern and comfortable environment.</span></div><div class="feature"><b>Client First</b><span>Consultation-led service focused on satisfaction.</span></div></div><div class="actions"><a class="btn primary" href="#contact">Plan Your Visit</a><a class="btn ghost" href="https://www.instagram.com/arman_hair_hk/" target="_blank" rel="noreferrer">Instagram</a></div></div>
+  </div>
+</section>
+
+<section id="gallery" class="section">
+  <div class="wrap"><div class="reveal"><div class="eyebrow">Studio Gallery</div><h2 class="title">Style in <span class="gold"><em>Every Frame</em></span></h2><div class="line"></div></div><div class="gallery">
+    <figure class="reveal"><img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?crop=entropy&cs=srgb&fm=jpg&q=85&w=1000" alt="Barber styling"></figure>
+    <figure class="reveal"><img src="https://images.unsplash.com/photo-1595475884562-073c30d45670?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Hair style"></figure>
+    <figure class="reveal"><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Beard grooming"></figure>
+    <figure class="reveal"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Ladies hair"></figure>
+    <figure class="reveal"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Salon work"></figure>
+    <figure class="reveal"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Salon styling"></figure>
+  </div></div>
+</section>
+
+<section id="contact" class="section" style="background:#090909">
+  <div class="wrap"><div class="reveal"><div class="eyebrow">Get in Touch</div><h2 class="title">Contact &amp; <span class="gold"><em>Appointment</em></span></h2><div class="line"></div><p class="sub">Ready for a fresh look? Book your chair and the team will confirm your appointment on WhatsApp.</p></div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="contact-card"><div class="icon">☎</div><div><small>Call Us</small><b><a href="tel:8878356060">8878356060</a></b></div></div>
+        <div class="contact-card"><div class="icon">◉</div><div><small>WhatsApp</small><b><a href="https://wa.me/918878356060" target="_blank" rel="noreferrer">8878356060</a></b></div></div>
+        <div class="contact-card"><div class="icon">⌖</div><div><small>Visit Us</small><b>Bhopal, Madhya Pradesh, India – 462001</b></div></div>
+        <div class="contact-card"><div class="icon">◷</div><div><small>Studio Hours</small><b>Mon – Sun · 10:00 AM – 9:00 PM</b></div></div>
+        <div class="contact-card"><div class="icon">◎</div><div><small>Instagram</small><b><a href="https://www.instagram.com/arman_hair_hk/" target="_blank" rel="noreferrer">@arman_hair_hk</a></b></div></div>
+      </div>
+      <form id="booking" class="form reveal">
+        <h3>Book an Appointment</h3>
+        <div class="form-grid"><input id="name" class="field" placeholder="Your Name *" required><input id="phone" class="field" placeholder="Mobile Number *" required></div>
+        <div style="height:12px"></div>
+        <select id="service" class="field" required><option value="">Select Service *</option><option>Signature Haircut</option><option>Haircut & Beard Styling</option><option>Beard Design</option><option>Hair Colour</option><option>Hair Spa</option><option>Hair Styling</option><option>Keratin Treatment</option><option>Bridal Hair Styling</option></select>
+        <div style="height:12px"></div>
+        <div class="form-grid"><input id="date" type="date" class="field" required><input id="time" type="time" class="field" required></div>
+        <div style="height:12px"></div><textarea id="message" class="field" rows="4" placeholder="Special request (optional)"></textarea>
+        <button class="btn primary" type="submit">Confirm on WhatsApp</button><div class="note">Submitting opens WhatsApp with your booking details so the studio can confirm your slot directly.</div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap foot"><div>© 2026 Arman Hair Studio. All rights reserved.</div><div>Premium Hair &amp; Grooming · Bhopal</div></div></footer>
+<a class="wa" href="https://wa.me/918878356060?text=Hi%20Arman%20Hair%20Studio%2C%20I%20want%20to%20book%20an%20appointment." target="_blank" rel="noreferrer" aria-label="WhatsApp">WA</a>
+<script>
+  const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  document.querySelectorAll('.links a').forEach(a=>a.addEventListener('click',()=>document.querySelector('.links').classList.remove('open')));
+  document.getElementById('booking').addEventListener('submit',e=>{e.preventDefault();const n=document.getElementById('name').value.trim(),p=document.getElementById('phone').value.trim(),s=document.getElementById('service').value,d=document.getElementById('date').value,t=document.getElementById('time').value,m=document.getElementById('message').value.trim();const text=`Hi Arman Hair Studio, I want to book an appointment.%0A%0AName: ${encodeURIComponent(n)}%0AMobile: ${encodeURIComponent(p)}%0AService: ${encodeURIComponent(s)}%0ADate: ${encodeURIComponent(d)}%0ATime: ${encodeURIComponent(t)}${m?`%0ANote: ${encodeURIComponent(m)}`:''}`;window.open('https://wa.me/918878356060?text='+text,'_blank')});
+</script>
+</body>
+</html>
