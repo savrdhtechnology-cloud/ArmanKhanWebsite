@@ -5,17 +5,33 @@ import { useAuth } from "@/context/AuthContext";
 import { Divider, SectionLabel } from "@/components/Divider";
 import { Clock, CheckCircle, Calendar, Phone, LogOut, BellRing, MessageCircle, Filter, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
+import { Stagger, StaggerItem, EASE } from "@/components/Motion";
 import { useNavigate } from "react-router-dom";
 
 const STATUS = ["pending", "confirmed", "completed", "cancelled"];
 
 const StatCard = ({ icon: Icon, label, value, testId, tone }) => (
-  <div className="bg-[#111111] border border-white/5 p-6" data-testid={testId}>
+  <StaggerItem
+    className="bg-[#111111] border border-white/5 hover:border-brand-gold/40 transition-colors duration-500 p-6"
+    data-testid={testId}
+    whileHover={{ y: -6, transition: { duration: 0.3, ease: EASE } }}
+  >
     <Icon className={`w-6 h-6 mb-3 ${tone || "text-brand-gold"}`} strokeWidth={1.5} />
-    <div className="text-3xl font-playfair text-white">{value}</div>
+    <motion.div
+      key={value}
+      className="text-3xl font-playfair text-white"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+    >
+      {value}
+    </motion.div>
     <div className="text-white/50 text-xs uppercase tracking-[0.25em] mt-1">{label}</div>
-  </div>
+  </StaggerItem>
 );
+
+const LAYOUT_PREFIX = "staff";
 
 export default function Staff() {
   const { user, logout } = useAuth();
@@ -65,7 +81,7 @@ export default function Staff() {
 
   return (
     <div data-testid="staff-page" className="max-w-7xl mx-auto px-6 sm:px-8 py-10">
-      <div className="flex items-center justify-between mb-8 flex-wrap gap-3">
+      <motion.div className="flex items-center justify-between mb-8 flex-wrap gap-3" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}>
         <div>
           <SectionLabel>Staff CRM</SectionLabel>
           <h1 className="font-playfair text-4xl text-white">Employee Portal</h1>
@@ -78,17 +94,17 @@ export default function Staff() {
             <LogOut className="w-4 h-4" /> Logout
           </button>
         </div>
-      </div>
+      </motion.div>
       <Divider className="!justify-start" />
 
-      <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-8">
+      <Stagger className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-8" animateOnMount stagger={0.07} delay={0.2}>
         <StatCard icon={TrendingUp} label="Total" value={stats?.total ?? 0} testId="s-total" />
         <StatCard icon={Clock} label="Pending" value={stats?.pending ?? 0} testId="s-pending" />
         <StatCard icon={CheckCircle} label="Confirmed" value={stats?.confirmed ?? 0} testId="s-confirmed" />
         <StatCard icon={CheckCircle} label="Completed" value={stats?.completed ?? 0} testId="s-completed" />
         <StatCard icon={Calendar} label="Today" value={stats?.today ?? 0} testId="s-today" />
         <StatCard icon={BellRing} label="Follow-ups Due" value={stats?.followups_due ?? 0} testId="s-followups" tone="text-yellow-400" />
-      </div>
+      </Stagger>
 
       <div className="flex gap-2 mb-4">
         {[
@@ -98,14 +114,29 @@ export default function Staff() {
           <button
             key={t.k}
             onClick={() => setTab(t.k)}
-            className={`px-5 py-2 text-xs uppercase tracking-[0.25em] border transition-all ${tab === t.k ? "bg-brand-gold text-black border-brand-gold" : "border-white/10 text-white/60 hover:border-brand-gold/40"}`}
+            className={`relative px-5 py-2 text-xs uppercase tracking-[0.25em] border transition-colors ${tab === t.k ? "text-black border-brand-gold" : "border-white/10 text-white/60 hover:border-brand-gold/40"}`}
             data-testid={`staff-tab-${t.k}`}
           >
-            {t.label}
+            {tab === t.k && (
+              <motion.span
+                layoutId={`${LAYOUT_PREFIX}-tab-active`}
+                className="absolute inset-0 bg-brand-gold"
+                transition={{ type: "spring", stiffness: 400, damping: 34 }}
+              />
+            )}
+            <span className="relative">{t.label}</span>
           </button>
         ))}
       </div>
 
+      <AnimatePresence mode="wait">
+      <motion.div
+        key={tab}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.35, ease: EASE }}
+      >
       {tab === "appointments" && (
         <div className="bg-[#111111] border border-white/5">
           <div className="p-4 border-b border-white/5 flex items-center gap-3 flex-wrap">
@@ -130,8 +161,8 @@ export default function Staff() {
               <tbody>
                 {appts.length === 0 ? (
                   <tr><td colSpan={6} className="p-10 text-center text-white/40">No appointments assigned</td></tr>
-                ) : appts.map((a) => (
-                  <tr key={a.id} className="border-b border-white/5 hover:bg-white/[0.02]" data-testid={`staff-appt-${a.id}`}>
+                ) : appts.map((a, rowIdx) => (
+                  <motion.tr key={a.id} className="border-b border-white/5 hover:bg-white/[0.02]" data-testid={`staff-appt-${a.id}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: Math.min(rowIdx, 12) * 0.04 }}>
                     <td className="p-4 text-white">
                       {a.name}
                       {a.follow_up_at && <div className="text-yellow-400 text-[10px] mt-1">⏰ {new Date(a.follow_up_at).toLocaleString()}</div>}
@@ -157,7 +188,7 @@ export default function Staff() {
                         <BellRing className="w-3 h-3" /> Follow-up
                       </button>
                     </td>
-                  </tr>
+                  </motion.tr>
                 ))}
               </tbody>
             </table>
@@ -176,8 +207,8 @@ export default function Staff() {
             <div className="p-10 text-center text-white/40">No pending follow-ups. You're all caught up ✂️</div>
           ) : (
             <div className="divide-y divide-white/5">
-              {followups.map((a) => (
-                <div key={a.id} className="p-5 flex flex-col md:flex-row gap-3 md:items-center justify-between">
+              {followups.map((a, rowIdx) => (
+                <motion.div key={a.id} className="p-5 flex flex-col md:flex-row gap-3 md:items-center justify-between" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: Math.min(rowIdx, 12) * 0.04 }}>
                   <div>
                     <div className="text-white font-playfair">{a.name} · <span className="text-brand-gold text-sm">{a.service}</span></div>
                     <div className="text-white/50 text-xs">{a.date} · {a.time}</div>
@@ -189,12 +220,14 @@ export default function Staff() {
                     <a href={`https://wa.me/91${a.phone.replace(/\D/g, '').slice(-10)}`} target="_blank" rel="noreferrer" className="btn-outline-gold !py-2 !px-4 !text-xs"><MessageCircle className="w-3 h-3" />WhatsApp</a>
                     <button onClick={() => followupMut.mutate({ id: a.id, at: null, note: "" })} className="text-white/60 hover:text-brand-gold text-xs uppercase tracking-widest border border-white/10 px-3">Clear</button>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           )}
         </div>
       )}
+      </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

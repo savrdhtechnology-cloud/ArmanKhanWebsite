@@ -5,6 +5,8 @@ import { ALL_SERVICE_NAMES } from "@/lib/services";
 import { api, formatError } from "@/lib/api";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
+import { motion } from "framer-motion";
+import { Stagger, StaggerItem } from "@/components/Motion";
 
 export default function Contact() {
   const { user } = useAuth();
@@ -42,20 +44,20 @@ export default function Contact() {
   return (
     <div data-testid="contact-page">
       <section className="pt-8 pb-4 max-w-7xl mx-auto px-6 sm:px-8">
-        <div className="mb-8">
-          <SectionLabel>Get in touch</SectionLabel>
-          <h1 className="font-playfair text-5xl sm:text-6xl text-white leading-tight">
+        <Stagger className="mb-8" animateOnMount stagger={0.12} delay={0.1}>
+          <StaggerItem><SectionLabel>Get in touch</SectionLabel></StaggerItem>
+          <StaggerItem as="h1" className="font-playfair text-5xl sm:text-6xl text-white leading-tight">
             Contact &amp;<br /><span className="text-brand-gold italic">Appointment</span>
-          </h1>
-          <Divider className="!justify-start" />
-          <p className="text-white/60 max-w-xl">We're here to make you look and feel your best. Have a question or ready for a fresh look? Get in touch or book your appointment in advance.</p>
-        </div>
+          </StaggerItem>
+          <StaggerItem><Divider className="!justify-start" /></StaggerItem>
+          <StaggerItem as="p" className="text-white/60 max-w-xl">We're here to make you look and feel your best. Have a question or ready for a fresh look? Get in touch or book your appointment in advance.</StaggerItem>
+        </Stagger>
       </section>
 
       <section className="max-w-7xl mx-auto px-6 sm:px-8 grid md:grid-cols-2 gap-10 pb-16">
         {/* Contact info */}
-        <div className="space-y-5">
-          <h3 className="text-brand-gold text-xs uppercase tracking-[0.3em] mb-2">Get in Touch</h3>
+        <Stagger className="space-y-5" stagger={0.1} delay={0.3} animateOnMount>
+          <StaggerItem as="h3" direction="left" className="text-brand-gold text-xs uppercase tracking-[0.3em] mb-2">Get in Touch</StaggerItem>
           {[
             { icon: Phone, label: "Call Us", value: "8878356060", href: "tel:8878356060" },
             { icon: MessageCircle, label: "WhatsApp", value: "8878356060", href: "https://wa.me/918878356060" },
@@ -63,22 +65,44 @@ export default function Contact() {
             { icon: Clock, label: "Studio Hours", value: "Mon – Sun · 10:00 AM – 9:00 PM" },
             { icon: Instagram, label: "Follow Us", value: "@arman_hair_hk", href: "https://www.instagram.com/arman_hair_hk/" },
           ].map((c, i) => (
-            <div key={i} className="flex items-start gap-4 bg-[#111111] border border-white/5 p-5" data-testid={`contact-${i}`}>
-              <div className="w-11 h-11 border border-brand-gold/40 flex items-center justify-center flex-shrink-0">
+            <StaggerItem
+              key={i}
+              direction="left"
+              className="group flex items-start gap-4 bg-[#111111] border border-white/5 hover:border-brand-gold/40 transition-colors duration-500 p-5"
+              data-testid={`contact-${i}`}
+              whileHover={{ x: 6 }}
+            >
+              <motion.div
+                className="w-11 h-11 border border-brand-gold/40 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-gold/10 transition-colors"
+                whileHover={{ rotate: 12, scale: 1.08 }}
+              >
                 <c.icon className="w-4 h-4 text-brand-gold" strokeWidth={1.5} />
-              </div>
+              </motion.div>
               <div>
                 <div className="text-brand-gold text-[10px] uppercase tracking-[0.3em] mb-1">{c.label}</div>
                 {c.href ? <a href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="text-white hover:text-brand-gold">{c.value}</a> : <div className="text-white">{c.value}</div>}
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
 
         {/* Booking form */}
-        <form onSubmit={submit} className="bg-[#111111] border border-brand-gold/30 p-8" data-testid="booking-form">
+        <motion.form
+          onSubmit={submit}
+          className="bg-[#111111] border border-brand-gold/30 p-8"
+          data-testid="booking-form"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        >
           <h3 className="font-playfair text-2xl text-white mb-2 flex items-center gap-2"><Calendar className="w-5 h-5 text-brand-gold" /> Book an Appointment</h3>
-          <div className="h-[1px] w-16 bg-brand-gold/50 mb-6" />
+          <motion.div
+            className="h-[1px] w-16 bg-brand-gold/50 mb-6"
+            style={{ transformOrigin: "left" }}
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <input className="luxury-input" placeholder="Your Name *" value={form.name} onChange={set("name")} data-testid="input-name" />
@@ -97,9 +121,16 @@ export default function Contact() {
           </div>
           <textarea className="luxury-input min-h-[90px] mb-6" placeholder="Additional Message (Optional)" value={form.message} onChange={set("message")} data-testid="input-message" />
 
-          <button type="submit" className="btn-gold w-full mb-4" disabled={loading} data-testid="submit-booking">
+          <motion.button
+            type="submit"
+            className="btn-gold w-full mb-4"
+            disabled={loading}
+            data-testid="submit-booking"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+          >
             <Calendar className="w-4 h-4" /> {loading ? "Sending..." : "Book Appointment"}
-          </button>
+          </motion.button>
 
           <div className="relative py-2 text-center text-white/40 text-xs">
             <div className="absolute inset-y-1/2 left-0 h-[1px] w-1/3 bg-white/10" />
@@ -114,7 +145,7 @@ export default function Contact() {
           <div className="flex items-center justify-center gap-2 mt-4 text-white/40 text-xs">
             <ShieldCheck className="w-3 h-3 text-brand-gold" /> Your information is safe with us.
           </div>
-        </form>
+        </motion.form>
       </section>
     </div>
   );

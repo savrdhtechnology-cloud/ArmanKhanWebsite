@@ -5,17 +5,33 @@ import { useAuth } from "@/context/AuthContext";
 import { Divider, SectionLabel } from "@/components/Divider";
 import { Users, Calendar, CheckCircle, Clock, TrendingUp, LogOut, Filter, Phone, UserPlus, Trash2, UserCog, AlertCircle, Trophy, Medal, Award, Zap, XCircle } from "lucide-react";
 import { toast } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
+import { Stagger, StaggerItem, EASE } from "@/components/Motion";
 import { useNavigate } from "react-router-dom";
 
 const STATUS = ["pending", "confirmed", "completed", "cancelled"];
 
 const StatCard = ({ icon: Icon, label, value, testId, tone }) => (
-  <div className="bg-[#111111] border border-white/5 p-6" data-testid={testId}>
+  <StaggerItem
+    className="bg-[#111111] border border-white/5 hover:border-brand-gold/40 transition-colors duration-500 p-6"
+    data-testid={testId}
+    whileHover={{ y: -6, transition: { duration: 0.3, ease: EASE } }}
+  >
     <Icon className={`w-6 h-6 mb-3 ${tone || "text-brand-gold"}`} strokeWidth={1.5} />
-    <div className="text-3xl font-playfair text-white">{value}</div>
+    <motion.div
+      key={value}
+      className="text-3xl font-playfair text-white"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+    >
+      {value}
+    </motion.div>
     <div className="text-white/50 text-xs uppercase tracking-[0.25em] mt-1">{label}</div>
-  </div>
+  </StaggerItem>
 );
+
+const LAYOUT_PREFIX = "admin";
 
 export default function Admin() {
   const { user, logout } = useAuth();
@@ -79,7 +95,7 @@ export default function Admin() {
 
   return (
     <div data-testid="admin-page" className="max-w-7xl mx-auto px-6 sm:px-8 py-10">
-      <div className="flex items-center justify-between mb-8 flex-wrap gap-3">
+      <motion.div className="flex items-center justify-between mb-8 flex-wrap gap-3" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}>
         <div>
           <SectionLabel>Admin CRM</SectionLabel>
           <h1 className="font-playfair text-4xl text-white">Dashboard</h1>
@@ -101,10 +117,10 @@ export default function Admin() {
           <div className="text-white/60 text-sm hidden sm:block">Welcome, <span className="text-brand-gold">{user?.name}</span></div>
           <button onClick={() => { logout(); navigate("/"); }} className="btn-outline-gold !py-2 !px-4 !text-xs" data-testid="admin-logout"><LogOut className="w-4 h-4" /> Logout</button>
         </div>
-      </div>
+      </motion.div>
       <Divider className="!justify-start" />
 
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-10">
+      <Stagger className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-10" animateOnMount stagger={0.07} delay={0.2}>
         <StatCard icon={TrendingUp} label="Total Leads" value={stats?.total_leads ?? 0} testId="stat-total" />
         <StatCard icon={Clock} label="Pending" value={stats?.pending ?? 0} testId="stat-pending" />
         <StatCard icon={CheckCircle} label="Confirmed" value={stats?.confirmed ?? 0} testId="stat-confirmed" />
@@ -112,7 +128,7 @@ export default function Admin() {
         <StatCard icon={AlertCircle} label="Unassigned" value={stats?.unassigned ?? 0} testId="stat-unassigned" tone="text-yellow-400" />
         <StatCard icon={Users} label="Customers" value={stats?.customers ?? 0} testId="stat-customers" />
         <StatCard icon={UserCog} label="Staff" value={stats?.staff ?? 0} testId="stat-staff" />
-      </div>
+      </Stagger>
 
       <div className="flex gap-2 mb-4 flex-wrap">
         {[
@@ -124,14 +140,29 @@ export default function Admin() {
           <button
             key={t.k}
             onClick={() => setTab(t.k)}
-            className={`px-5 py-2 text-xs uppercase tracking-[0.25em] border transition-all ${tab === t.k ? "bg-brand-gold text-black border-brand-gold" : "border-white/10 text-white/60 hover:border-brand-gold/40"}`}
+            className={`relative px-5 py-2 text-xs uppercase tracking-[0.25em] border transition-colors ${tab === t.k ? "text-black border-brand-gold" : "border-white/10 text-white/60 hover:border-brand-gold/40"}`}
             data-testid={`tab-${t.k}`}
           >
-            {t.label}
+            {tab === t.k && (
+              <motion.span
+                layoutId={`${LAYOUT_PREFIX}-tab-active`}
+                className="absolute inset-0 bg-brand-gold"
+                transition={{ type: "spring", stiffness: 400, damping: 34 }}
+              />
+            )}
+            <span className="relative">{t.label}</span>
           </button>
         ))}
       </div>
 
+      <AnimatePresence mode="wait">
+      <motion.div
+        key={tab}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.35, ease: EASE }}
+      >
       {tab === "appointments" && (
         <div className="bg-[#111111] border border-white/5">
           <div className="p-4 border-b border-white/5 flex items-center gap-3 flex-wrap">
@@ -156,8 +187,8 @@ export default function Admin() {
               <tbody>
                 {appts.length === 0 ? (
                   <tr><td colSpan={6} className="p-10 text-center text-white/40">No appointments</td></tr>
-                ) : appts.map((a) => (
-                  <tr key={a.id} className="border-b border-white/5 hover:bg-white/[0.02]" data-testid={`admin-appt-${a.id}`}>
+                ) : appts.map((a, rowIdx) => (
+                  <motion.tr key={a.id} className="border-b border-white/5 hover:bg-white/[0.02]" data-testid={`admin-appt-${a.id}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: Math.min(rowIdx, 12) * 0.04 }}>
                     <td className="p-4 text-white">{a.name}</td>
                     <td className="p-4 text-white/70">
                       <a href={`tel:${a.phone}`} className="hover:text-brand-gold flex items-center gap-1"><Phone className="w-3 h-3" />{a.phone}</a>
@@ -186,7 +217,7 @@ export default function Admin() {
                         {STATUS.map((s) => <option key={s} value={s} className="bg-[#111] capitalize">{s}</option>)}
                       </select>
                     </td>
-                  </tr>
+                  </motion.tr>
                 ))}
               </tbody>
             </table>
@@ -234,10 +265,14 @@ export default function Admin() {
                 const rankLabel = rank === 1 ? "🥇 CHAMPION" : rank === 2 ? "🥈 RUNNER-UP" : rank === 3 ? "🥉 THIRD" : `#${rank}`;
                 const won = s.confirmed + s.completed;
                 return (
-                  <div
+                  <motion.div
                     key={s.id}
-                    className={`relative bg-[#111111] border p-6 transition-all hover:-translate-y-1 ${rank === 1 ? "border-brand-gold" : "border-white/5 hover:border-brand-gold/40"}`}
+                    className={`relative bg-[#111111] border p-6 transition-colors ${rank === 1 ? "border-brand-gold" : "border-white/5 hover:border-brand-gold/40"}`}
                     data-testid={`perf-card-${s.id}`}
+                    initial={{ opacity: 0, y: 30, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.6, delay: i * 0.1, ease: EASE }}
+                    whileHover={{ y: -6, transition: { duration: 0.3 } }}
                   >
                     <div className="flex items-start justify-between mb-4">
                       <div>
@@ -257,9 +292,11 @@ export default function Admin() {
                       </div>
                       {/* Progress bar */}
                       <div className="mt-3 h-1 bg-white/10 relative overflow-hidden">
-                        <div
-                          className="absolute inset-y-0 left-0 bg-gradient-to-r from-brand-gold to-yellow-400 transition-all duration-1000"
-                          style={{ width: `${Math.min(s.conversion, 100)}%` }}
+                        <motion.div
+                          className="absolute inset-y-0 left-0 bg-gradient-to-r from-brand-gold to-yellow-400"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${Math.min(s.conversion, 100)}%` }}
+                          transition={{ duration: 1.2, delay: 0.3 + i * 0.1, ease: EASE }}
                         />
                       </div>
                     </div>
@@ -288,7 +325,7 @@ export default function Admin() {
                       <span className="text-white/50">Won leads</span>
                       <span className="text-brand-gold font-playfair text-lg">{won}</span>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
@@ -341,8 +378,8 @@ export default function Admin() {
               <tbody>
                 {staff.length === 0 ? (
                   <tr><td colSpan={5} className="p-8 text-center text-white/40">No staff yet — add one to start delegating leads.</td></tr>
-                ) : staff.map((s) => (
-                  <tr key={s.id} className="border-b border-white/5" data-testid={`staff-row-${s.id}`}>
+                ) : staff.map((s, rowIdx) => (
+                  <motion.tr key={s.id} className="border-b border-white/5" data-testid={`staff-row-${s.id}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: Math.min(rowIdx, 12) * 0.04 }}>
                     <td className="p-4 text-white">
                       {s.name}
                       <div className="text-white/40 text-[10px] uppercase tracking-widest">Telecaller</div>
@@ -355,7 +392,7 @@ export default function Admin() {
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </td>
-                  </tr>
+                  </motion.tr>
                 ))}
               </tbody>
             </table>
@@ -377,18 +414,20 @@ export default function Admin() {
             <tbody>
               {customers.length === 0 ? (
                 <tr><td colSpan={4} className="p-10 text-center text-white/40">No customers yet</td></tr>
-              ) : customers.map((c) => (
-                <tr key={c.id} className="border-b border-white/5" data-testid={`admin-cust-${c.id}`}>
+              ) : customers.map((c, rowIdx) => (
+                <motion.tr key={c.id} className="border-b border-white/5" data-testid={`admin-cust-${c.id}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: Math.min(rowIdx, 12) * 0.04 }}>
                   <td className="p-4 text-white">{c.name}</td>
                   <td className="p-4 text-white/70">{c.email}</td>
                   <td className="p-4 text-white/70">{c.phone || "—"}</td>
                   <td className="p-4 text-brand-gold">{c.appointment_count}</td>
-                </tr>
+                </motion.tr>
               ))}
             </tbody>
           </table>
         </div>
       )}
+      </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

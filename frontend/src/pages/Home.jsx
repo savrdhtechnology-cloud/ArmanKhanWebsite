@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Calendar, MessageCircle, Scissors, Award, Sparkles, ShieldCheck, Star, MapPin, Instagram, ClipboardList, Clock, CheckCircle2, Mail } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Divider, SectionLabel, SectionTitle } from "@/components/Divider";
 import { CountUp, SplitReveal, Shimmer, Marquee } from "@/components/Animated";
+import { Reveal, Stagger, StaggerItem, ImageReveal, Parallax, EASE } from "@/components/Motion";
 import { GENTS_SERVICES, GALLERY_IMAGES } from "@/lib/services";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
@@ -25,6 +26,11 @@ const JOURNEY = [
 ];
 
 export default function Home() {
+  // Hero portrait drifts and fades as the visitor scrolls past the hero
+  const { scrollY } = useScroll();
+  const heroImgY = useTransform(scrollY, [0, 700], [0, 120]);
+  const heroImgOpacity = useTransform(scrollY, [0, 700], [1, 0.35]);
+
   const { data: reviews = [] } = useQuery({
     queryKey: ["reviews-home"],
     queryFn: async () => (await api.get("/reviews")).data,
@@ -36,25 +42,38 @@ export default function Home() {
       <section className="relative min-h-[calc(100vh-5rem)] overflow-hidden bg-[#050505]">
         {/* Portrait */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-y-0 right-0 w-full md:w-[62%] h-full">
-            <img
+          <motion.div className="absolute inset-y-0 right-0 w-full md:w-[62%] h-full overflow-hidden" style={{ y: heroImgY, opacity: heroImgOpacity }}>
+            <motion.img
               src="/assets/arman-portrait.jpg"
               alt="Arman Khan"
               className="w-full h-full object-cover"
               style={{ objectPosition: "35% 15%" }}
+              initial={{ scale: 1.15, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 2, ease: EASE }}
             />
             {/* Left→right fade blending into black */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/40 to-transparent" />
             {/* Bottom vignette only */}
             <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#050505] to-transparent" />
-          </div>
-          {/* Warm gold glow behind subject */}
-          <div className="absolute right-[15%] top-1/4 w-[35%] h-[55%] bg-brand-gold/[0.08] blur-[100px] rounded-full" />
+          </motion.div>
+          {/* Warm gold glow behind subject — slowly breathing */}
+          <motion.div
+            className="absolute right-[15%] top-1/4 w-[35%] h-[55%] bg-brand-gold/[0.08] blur-[100px] rounded-full"
+            animate={{ scale: [1, 1.15, 1], opacity: [0.8, 1, 0.8] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          />
           <div className="hero-glow" />
         </div>
 
         {/* Decorative gold vertical accent bars */}
-        <div className="hidden md:block absolute left-[52%] top-24 bottom-24 w-px bg-gradient-to-b from-transparent via-brand-gold/30 to-transparent" />
+        <motion.div
+          className="hidden md:block absolute left-[52%] top-24 bottom-24 w-px bg-gradient-to-b from-transparent via-brand-gold/30 to-transparent"
+          style={{ transformOrigin: "top" }}
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 1.6, delay: 0.6, ease: EASE }}
+        />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 pt-16 md:pt-24 pb-20 grid md:grid-cols-2 gap-8 items-center min-h-[calc(100vh-5rem)]">
           <div>
@@ -79,10 +98,14 @@ export default function Home() {
               <span className="text-sm">Bhopal, Madhya Pradesh</span>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.8, duration: 0.6 }} className="flex flex-wrap gap-4">
-              <Link to="/contact" className="btn-gold group" data-testid="hero-book-btn">
-                <Calendar className="w-4 h-4 group-hover:rotate-12 transition-transform" /> Book Your Chair
-              </Link>
-              <a
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+                <Link to="/contact" className="btn-gold group" data-testid="hero-book-btn">
+                  <Calendar className="w-4 h-4 group-hover:rotate-12 transition-transform" /> Book Your Chair
+                </Link>
+              </motion.div>
+              <motion.a
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
                 href="https://wa.me/918878356060?text=Hi%20Arman%20Hair%20Studio%2C%20I%20want%20to%20book%20an%20appointment."
                 target="_blank"
                 rel="noreferrer"
@@ -90,7 +113,7 @@ export default function Home() {
                 data-testid="hero-whatsapp-btn"
               >
                 <MessageCircle className="w-4 h-4 group-hover:scale-110 transition-transform" /> Book on WhatsApp
-              </a>
+              </motion.a>
             </motion.div>
           </div>
 
@@ -108,12 +131,37 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
+
+        {/* Scroll cue */}
+        <motion.div
+          className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 text-white/40"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.2, duration: 0.8 }}
+          aria-hidden="true"
+        >
+          <span className="text-[9px] uppercase tracking-[0.4em]">Scroll</span>
+          <div className="w-5 h-8 rounded-full border border-brand-gold/40 flex justify-center pt-1.5">
+            <motion.span
+              className="w-1 h-1.5 rounded-full bg-brand-gold"
+              animate={{ y: [0, 10, 0], opacity: [1, 0.2, 1] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </div>
+        </motion.div>
       </section>
 
       {/* Marquee ticker */}
-      <section className="border-y border-brand-gold/20 bg-[#050505] py-6 overflow-hidden" data-testid="hero-marquee">
+      <motion.section
+        className="border-y border-brand-gold/20 bg-[#050505] py-6 overflow-hidden"
+        data-testid="hero-marquee"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+      >
         <Marquee items={["THE ART OF HAIR", "PREMIUM STYLING", "LUXURY GROOMING", "SIGNATURE CUTS", "BHOPAL"]} />
-      </section>
+      </motion.section>
 
       {/* Feature strip with pulse-in icons */}
       <section className="border-y border-white/5 bg-[#0A0A0A]">
@@ -298,7 +346,7 @@ export default function Home() {
       {/* Why choose */}
       <section className="py-24 bg-[#0A0A0A]">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 grid md:grid-cols-2 gap-12 items-center">
-          <div>
+          <Reveal direction="left">
             <SectionLabel>Why Choose Us</SectionLabel>
             <SectionTitle>A Luxury <span className="text-brand-gold italic">Experience</span></SectionTitle>
             <Divider className="!justify-start" />
@@ -306,18 +354,25 @@ export default function Home() {
               At Arman Hair Studio, every visit is designed to feel effortless and elevated. From precision cuts
               to advanced hair care, we combine international techniques with a warm personal touch.
             </p>
-            <div className="grid grid-cols-2 gap-6">
+            <Stagger className="grid grid-cols-2 gap-6" stagger={0.12} delay={0.2}>
               {FEATURES.map((f, i) => (
-                <div key={i} className="border-l-2 border-brand-gold/60 pl-4">
+                <StaggerItem key={i} className="border-l-2 border-brand-gold/60 pl-4" whileHover={{ x: 6 }}>
                   <f.icon className="w-6 h-6 text-brand-gold mb-2" strokeWidth={1.2} />
                   <div className="text-white font-playfair text-lg">{f.title}</div>
                   <div className="text-white/50 text-sm">{f.sub}</div>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
-          </div>
+            </Stagger>
+          </Reveal>
           <div className="relative aspect-[4/5] overflow-hidden border border-brand-gold/30">
-            <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?crop=entropy&cs=srgb&fm=jpg&q=85&w=900" alt="Studio" className="w-full h-full object-cover" />
+            <Parallax offset={40} className="absolute -inset-y-12 inset-x-0">
+              <ImageReveal
+                src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?crop=entropy&cs=srgb&fm=jpg&q=85&w=900"
+                alt="Studio"
+                className="w-full h-full"
+                imgClassName="w-full h-full object-cover"
+              />
+            </Parallax>
           </div>
         </div>
       </section>
@@ -335,7 +390,7 @@ export default function Home() {
           <SectionTitle>What Clients Say</SectionTitle>
           <Divider />
         </motion.div>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6" style={{ perspective: 1000 }}>
           {reviews.slice(0, 3).map((r, i) => (
             <motion.div
               key={r.id}
@@ -404,16 +459,18 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 max-w-4xl mx-auto text-center px-6">
+      <Reveal as="section" className="py-24 max-w-4xl mx-auto text-center px-6">
         <SectionLabel>Ready?</SectionLabel>
         <SectionTitle>Reserve Your <span className="text-brand-gold italic">Chair</span></SectionTitle>
         <Divider />
         <p className="text-white/60 mb-8">Walk-ins welcome. For guaranteed slots, book in advance.</p>
         <div className="flex flex-wrap gap-4 justify-center">
-          <Link to="/contact" className="btn-gold" data-testid="cta-book"><Calendar className="w-4 h-4" /> Book Appointment</Link>
-          <a href="tel:8878356060" className="btn-outline-gold" data-testid="cta-call">Call 8878356060</a>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
+            <Link to="/contact" className="btn-gold" data-testid="cta-book"><Calendar className="w-4 h-4" /> Book Appointment</Link>
+          </motion.div>
+          <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} href="tel:8878356060" className="btn-outline-gold" data-testid="cta-call">Call 8878356060</motion.a>
         </div>
-      </section>
+      </Reveal>
     </div>
   );
 }

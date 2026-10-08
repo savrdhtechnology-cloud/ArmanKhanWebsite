@@ -6,6 +6,8 @@ import { Star } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Reveal, Stagger, StaggerItem, EASE } from "@/components/Motion";
 
 export default function Reviews() {
   const { user } = useAuth();
@@ -37,19 +39,35 @@ export default function Reviews() {
           <Divider />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-16">
+        {/* Re-keyed on length so newly loaded / posted reviews animate in too */}
+        <Stagger key={reviews.length} className="grid md:grid-cols-2 gap-6 mb-16" stagger={0.1} amount={0.05}>
           {reviews.map((r) => (
-            <div key={r.id} className="bg-[#111111] border border-white/5 p-8" data-testid={`review-card-${r.id}`}>
+            <StaggerItem
+              key={r.id}
+              className="bg-[#111111] border border-white/5 hover:border-brand-gold/40 transition-colors duration-500 p-8"
+              data-testid={`review-card-${r.id}`}
+              whileHover={{ y: -6, transition: { duration: 0.3, ease: EASE } }}
+            >
               <div className="flex gap-1 mb-3 text-brand-gold">
-                {Array.from({ length: r.rating }).map((_, i) => <Star key={i} className="w-4 h-4 fill-brand-gold" />)}
+                {Array.from({ length: r.rating }).map((_, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{ scale: 0, rotate: -180 }}
+                    whileInView={{ scale: 1, rotate: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.2 + i * 0.07 }}
+                  >
+                    <Star className="w-4 h-4 fill-brand-gold" />
+                  </motion.span>
+                ))}
               </div>
               <p className="text-white/70 italic mb-4 font-playfair text-lg leading-relaxed">"{r.comment}"</p>
               <div className="text-brand-gold text-xs uppercase tracking-[0.25em]">— {r.name}</div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
 
-        <div className="bg-[#111111] border border-brand-gold/30 p-8 max-w-2xl mx-auto">
+        <Reveal direction="scale" className="bg-[#111111] border border-brand-gold/30 p-8 max-w-2xl mx-auto">
           <h3 className="font-playfair text-2xl text-white mb-4">Share Your Experience</h3>
           {!user ? (
             <p className="text-white/60"><Link to="/login" className="text-brand-gold underline">Login</Link> to post a review.</p>
@@ -57,9 +75,17 @@ export default function Reviews() {
             <>
               <div className="flex gap-2 mb-4">
                 {[1, 2, 3, 4, 5].map((n) => (
-                  <button key={n} onClick={() => setRating(n)} data-testid={`star-${n}`}>
-                    <Star className={`w-6 h-6 ${n <= rating ? "text-brand-gold fill-brand-gold" : "text-white/20"}`} />
-                  </button>
+                  <motion.button
+                    key={n}
+                    onClick={() => setRating(n)}
+                    data-testid={`star-${n}`}
+                    whileHover={{ scale: 1.25, rotate: 12 }}
+                    whileTap={{ scale: 0.85 }}
+                    animate={n <= rating ? { scale: [1, 1.3, 1] } : { scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Star className={`w-6 h-6 transition-colors ${n <= rating ? "text-brand-gold fill-brand-gold" : "text-white/20"}`} />
+                  </motion.button>
                 ))}
               </div>
               <textarea
@@ -69,12 +95,19 @@ export default function Reviews() {
                 onChange={(e) => setComment(e.target.value)}
                 data-testid="review-comment"
               />
-              <button className="btn-gold" onClick={() => mut.mutate()} disabled={!comment.trim() || mut.isPending} data-testid="submit-review">
+              <motion.button
+                className="btn-gold"
+                onClick={() => mut.mutate()}
+                disabled={!comment.trim() || mut.isPending}
+                data-testid="submit-review"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.96 }}
+              >
                 {mut.isPending ? "Submitting..." : "Submit Review"}
-              </button>
+              </motion.button>
             </>
           )}
-        </div>
+        </Reveal>
       </section>
     </div>
   );
