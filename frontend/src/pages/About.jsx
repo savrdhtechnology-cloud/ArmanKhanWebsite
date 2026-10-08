@@ -171,14 +171,17 @@ export default function About() {
               transformed — inside and out.
             </p>
             <div className="flex items-center gap-4 mt-6">
-              <motion.div
-                className="font-signature text-brand-gold text-5xl leading-none"
-                initial={{ clipPath: "inset(0 100% 0 0)" }}
-                whileInView={{ clipPath: "inset(0 0% 0 0)" }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.6, delay: 0.5, ease: "easeInOut" }}
-              >
-                Arman Khan
+              {/* Signature "writes" itself in; trigger sits on an unclipped wrapper */}
+              <motion.div initial="hidden" whileInView="show" viewport={{ once: true }}>
+                <motion.div
+                  className="font-signature text-brand-gold text-5xl leading-none"
+                  variants={{
+                    hidden: { clipPath: "inset(0 100% 0 0)" },
+                    show: { clipPath: "inset(0 0% 0 0)", transition: { duration: 1.6, delay: 0.5, ease: "easeInOut" } },
+                  }}
+                >
+                  Arman Khan
+                </motion.div>
               </motion.div>
               <div className="h-10 w-px bg-brand-gold/40" />
               <div>

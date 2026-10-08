@@ -113,26 +113,35 @@ export const ImageReveal = ({ src, alt = "", className = "", imgClassName = "", 
     left: "inset(0% 100% 0% 0%)",
     right: "inset(0% 0% 0% 100%)",
   };
+  // The in-view trigger lives on an unclipped wrapper: browsers report a fully
+  // clip-pathed element as not intersecting, so it would never reveal itself.
   return (
     <motion.div
-      className={`overflow-hidden ${className}`}
-      initial={{ clipPath: clips[from] || clips.bottom }}
-      whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
+      className={className}
+      initial="hidden"
+      whileInView="show"
       viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 1.1, delay, ease: EASE }}
       {...rest}
     >
-      <motion.img
-        src={src}
-        alt={alt}
-        className={imgClassName}
-        style={imgStyle}
-        {...imgProps}
-        initial={{ scale: 1.25 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 1.6, delay, ease: EASE }}
-      />
+      <motion.div
+        className="w-full h-full overflow-hidden"
+        variants={{
+          hidden: { clipPath: clips[from] || clips.bottom },
+          show: { clipPath: "inset(0% 0% 0% 0%)", transition: { duration: 1.1, delay, ease: EASE } },
+        }}
+      >
+        <motion.img
+          src={src}
+          alt={alt}
+          className={imgClassName}
+          style={imgStyle}
+          {...imgProps}
+          variants={{
+            hidden: { scale: 1.25 },
+            show: { scale: 1, transition: { duration: 1.6, delay, ease: EASE } },
+          }}
+        />
+      </motion.div>
     </motion.div>
   );
 };
