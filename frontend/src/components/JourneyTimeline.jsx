@@ -84,7 +84,7 @@ function MilestoneCard({ item, index, isLeft }) {
       <div className="md:col-span-1 flex md:flex-col items-center md:items-center relative z-10 gap-4 md:gap-0">
         {/* Year badge - pulses gold */}
         <motion.div
-          initial={{ scale: 0, opacity: 0 }}
+          initial={{ scale: 0.3, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}

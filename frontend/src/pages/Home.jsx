@@ -406,8 +406,8 @@ export default function Home() {
                 {Array.from({ length: r.rating }).map((_, i) => (
                   <motion.span
                     key={i}
-                    initial={{ scale: 0, rotate: -180 }}
-                    whileInView={{ scale: 1, rotate: 0 }}
+                    initial={{ scale: 0.2, opacity: 0, rotate: -180 }}
+                    whileInView={{ scale: 1, opacity: 1, rotate: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.3 + i * 0.08 }}
                   >
