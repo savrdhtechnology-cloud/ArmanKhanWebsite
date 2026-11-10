@@ -54,7 +54,7 @@ function LoginForm() {
     try {
       const p = await signIn(email.trim(), password);
       D.reload();
-      const next = params.get('next');
+      const next = params?.get('next') ?? null;
       router.replace(next && next.startsWith('/network/') ? next : p.role === 'admin' ? '/network/admin' : p.role === 'partner' ? '/network/partner' : '/network/expert');
     } catch (x) { setErr((x as Error).message); }
     setBusy(false);
