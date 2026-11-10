@@ -1,4 +1,4 @@
-import Register from "@/pages/Register";
+import Register from "@/screens/Register";
 
 export const metadata = { title: "Create account" };
 

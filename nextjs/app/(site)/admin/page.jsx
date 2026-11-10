@@ -1,4 +1,4 @@
-import Admin from "@/pages/Admin";
+import Admin from "@/screens/Admin";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 
 export const metadata = { title: "Admin" };

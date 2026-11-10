@@ -1,4 +1,4 @@
-import Services from "@/pages/Services";
+import Services from "@/screens/Services";
 
 export const metadata = { title: "Services" };
 

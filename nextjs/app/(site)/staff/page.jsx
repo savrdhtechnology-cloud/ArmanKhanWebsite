@@ -1,4 +1,4 @@
-import Staff from "@/pages/Staff";
+import Staff from "@/screens/Staff";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 
 export const metadata = { title: "Staff" };

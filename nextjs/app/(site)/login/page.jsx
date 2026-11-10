@@ -1,4 +1,4 @@
-import Login from "@/pages/Login";
+import Login from "@/screens/Login";
 
 export const metadata = { title: "Sign in" };
 

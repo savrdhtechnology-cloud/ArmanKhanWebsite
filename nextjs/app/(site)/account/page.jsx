@@ -1,4 +1,4 @@
-import Account from "@/pages/Account";
+import Account from "@/screens/Account";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 
 export const metadata = { title: "My account" };

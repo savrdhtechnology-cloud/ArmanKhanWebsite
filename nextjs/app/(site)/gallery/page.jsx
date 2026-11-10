@@ -1,4 +1,4 @@
-import Gallery from "@/pages/Gallery";
+import Gallery from "@/screens/Gallery";
 
 export const metadata = { title: "Gallery" };
 

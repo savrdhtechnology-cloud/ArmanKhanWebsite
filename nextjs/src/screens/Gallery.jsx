@@ -9,6 +9,9 @@ import { X } from "lucide-react";
 
 export default function Gallery() {
   const [open, setOpen] = useState(null);
+  // the lightbox portal needs document.body, which only exists in the browser
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   // Close the lightbox with Escape
   useEffect(() => {
@@ -49,7 +52,7 @@ export default function Gallery() {
         </div>
       </section>
 
-      {createPortal(
+      {mounted && createPortal(
         <AnimatePresence>
           {open && (
             <motion.div

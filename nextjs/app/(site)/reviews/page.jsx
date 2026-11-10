@@ -1,4 +1,4 @@
-import Reviews from "@/pages/Reviews";
+import Reviews from "@/screens/Reviews";
 
 export const metadata = { title: "Reviews" };
 

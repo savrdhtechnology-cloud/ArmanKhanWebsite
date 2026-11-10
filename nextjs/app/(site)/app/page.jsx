@@ -1,4 +1,4 @@
-import MobileApp from "@/pages/MobileApp";
+import MobileApp from "@/screens/MobileApp";
 
 export const metadata = { title: "Get the app" };
 
