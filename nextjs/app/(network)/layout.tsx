@@ -1,10 +1,6 @@
 import type { Metadata, Viewport } from 'next';
-import { Manrope, Playfair_Display } from 'next/font/google';
 import { StoreSync } from '@/network/components/StoreSync';
 import '@/network/network.css';
-
-const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope', display: 'swap' });
-const playfair = Playfair_Display({ subsets: ['latin'], weight: ['500', '600', '700'], variable: '--font-playfair', display: 'swap' });
 
 export const metadata: Metadata = {
   title: { default: 'Arman Partner Network', template: '%s · Arman Partner Network' },
@@ -18,8 +14,14 @@ const themeScript = "try{var t=localStorage.getItem('arman-network-theme');if(t=
 
 export default function NetworkLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${manrope.variable} ${playfair.variable}`} data-theme="ivory" suppressHydrationWarning>
-      <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>
+    <html lang="en" data-theme="ivory" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" />
+      </head>
       <body>
         <StoreSync />
         {children}

@@ -3,6 +3,7 @@
    gold line icons, Playfair numbers. A "noir" theme is available from Appearance Studio.
    No decorative animation: every state change is instant. */
 
+:root { --font-manrope: 'Manrope'; --font-playfair: 'Playfair Display'; }
 :root, [data-theme='ivory'] {
   --bg: #f6f1e8;
   --card: #fffdf9;
