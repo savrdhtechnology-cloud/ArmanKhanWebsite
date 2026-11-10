@@ -24,7 +24,7 @@ function useExpertId(s: D.State | null): [string, (v: string) => void, boolean] 
 export function ExpertShell({ children }: { children: ReactNode }) {
   const s = useStore();
   const guard = useGuard('expert');
-  const path = usePathname();
+  const path = usePathname() || '';
   const router = useRouter();
   const [id, setId, locked] = useExpertId(s);
   if (!guard.ok || !s) return <Loading />;

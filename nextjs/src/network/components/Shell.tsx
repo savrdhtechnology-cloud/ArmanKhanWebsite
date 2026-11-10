@@ -31,7 +31,7 @@ export function Shell({ portal, sub, crest, nav, switcher, promo, userName, role
   userName: string; roleLabel: string; bell?: { href: string; count: number }; role: Role; children: ReactNode;
 }) {
   useTheme();
-  const path = usePathname();
+  const path = usePathname() || '';
   const router = useRouter();
   const guard = useGuard(role);
   const active = [...nav].sort((a, b) => b.href.length - a.href.length).find((n) => path === n.href || path.startsWith(n.href + '/'))?.href ?? nav[0].href;
