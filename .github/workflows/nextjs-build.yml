@@ -1,0 +1,37 @@
+name: Next.js build check
+
+# Builds the Next.js app (website + Partner Network) on every push that touches it,
+# so a broken build is caught before anything is deployed.
+on:
+  push:
+    paths:
+      - "nextjs/**"
+      - ".github/workflows/nextjs-build.yml"
+  pull_request:
+    paths:
+      - "nextjs/**"
+  workflow_dispatch:
+
+concurrency:
+  group: nextjs-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: nextjs
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Type check
+        run: npx tsc --noEmit
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
