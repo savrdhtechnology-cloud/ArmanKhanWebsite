@@ -1,7 +1,7 @@
 name: Next.js build check
 
 # Builds the Next.js app (website + Partner Network) on every push that touches it,
-# so a broken build is caught before anything is deployed.
+# then opens every route in Chromium, so a broken build or page is caught before deploy.
 on:
   push:
     paths:
@@ -37,3 +37,17 @@ jobs:
         run: npm run build
         env:
           NEXT_TELEMETRY_DISABLED: "1"
+      - name: Smoke test (every route in Chromium)
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.49.1
+          npx playwright install --with-deps chromium
+          (npm start > server.log 2>&1 &)
+          npx --yes wait-on@8.0.1 -t 60000 http://localhost:3000/network
+          node scripts/smoke.mjs
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-screenshots
+          path: nextjs/smoke/
+          retention-days: 7
