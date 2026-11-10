@@ -33,7 +33,10 @@ export default function Home() {
 
   const { data: reviews = [] } = useQuery({
     queryKey: ["reviews-home"],
-    queryFn: async () => (await api.get("/reviews")).data,
+    queryFn: async () => {
+      const data = (await api.get("/reviews")).data;
+      return Array.isArray(data) ? data : [];
+    },
   });
 
   return (

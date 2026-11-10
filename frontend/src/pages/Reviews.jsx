@@ -17,7 +17,10 @@ export default function Reviews() {
 
   const { data: reviews = [] } = useQuery({
     queryKey: ["reviews"],
-    queryFn: async () => (await api.get("/reviews")).data,
+    queryFn: async () => {
+      const data = (await api.get("/reviews")).data;
+      return Array.isArray(data) ? data : [];
+    },
   });
 
   const mut = useMutation({
